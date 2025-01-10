@@ -1,14 +1,31 @@
 <script setup lang="ts">
-import {type Component, onMounted, useTemplateRef} from "vue";
+import {type Component, onMounted, ref, useTemplateRef} from "vue";
 
-const flexibleOptions = defineProps<{
-  contents: Component;
-}>()
+const flexibleOptions = withDefaults(defineProps<{
+  contents: Component
+  width?: number
+  height?: number
+}>(), {
+  width: 300,
+  height: 300,
+})
+
+// const flexibleOptions = defineProps<{
+//   contents: Component;
+//   width: number;
+//   height: number;
+// }>()
 
 const boxContainer = useTemplateRef('box-container')
+const customTheme = ref({
+  defaultWidth: `${flexibleOptions.width}px`,
+  defaultHeight: `${flexibleOptions.height}px`
+})
 
 onMounted(() => {
   if(boxContainer.value) dragElement(boxContainer.value)
+
+  console.log(customTheme.value.defaultWidth)
 })
 
 /**
@@ -48,6 +65,7 @@ function dragElement(el: HTMLElement) {
     document.onmousemove = null
   }
 }
+
 </script>
 
 <template>
@@ -70,8 +88,8 @@ function dragElement(el: HTMLElement) {
   /* resize */
   min-width: 250px;
   min-height: 250px;
-  width: 300px;
-  height: 300px;
+  width: v-bind("customTheme.defaultWidth");
+  height: v-bind("customTheme.defaultHeight");
   overflow: hidden;
   resize: both;
 }

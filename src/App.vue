@@ -21,7 +21,7 @@ function toggleButton2() {
   <div>
     <button @click="toggleButton">메시지 박스1 띄우기</button>
     <p />
-    <flexible-box v-if="toggle" :contents="ChildComp1"></flexible-box>
+    <flexible-box v-if="toggle" :contents="ChildComp1" :width="500"></flexible-box>
     <p />
     <button @click="toggleButton2">메시지 박스2 띄우기</button>
     <p />
