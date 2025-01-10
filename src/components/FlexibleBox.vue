@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import {type Component, onMounted, ref, useTemplateRef} from "vue";
 
+/**
+ * TODO ::
+ * - Transition 적용
+ * - 창 위치
+ * - Toggle 옵션
+ * - zIndex 옵션 (base,auto)
+ *
+ * @see PrimeVue Popover
+ */
+
 const flexibleOptions = withDefaults(defineProps<{
   contents: Component
   width?: number
@@ -10,12 +20,6 @@ const flexibleOptions = withDefaults(defineProps<{
   height: 300,
 })
 
-// const flexibleOptions = defineProps<{
-//   contents: Component;
-//   width: number;
-//   height: number;
-// }>()
-
 const boxContainer = useTemplateRef('box-container')
 const customTheme = ref({
   defaultWidth: `${flexibleOptions.width}px`,
@@ -24,8 +28,6 @@ const customTheme = ref({
 
 onMounted(() => {
   if(boxContainer.value) dragElement(boxContainer.value)
-
-  console.log(customTheme.value.defaultWidth)
 })
 
 /**
@@ -92,6 +94,8 @@ function dragElement(el: HTMLElement) {
   height: v-bind("customTheme.defaultHeight");
   overflow: hidden;
   resize: both;
+
+
 }
 
 .drag-box-header {
