@@ -5,7 +5,7 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
  * TODO ::
  * - Transition 적용
  * - zIndex 옵션 (base,auto)
- *
+ * - emit 정의하기
  */
 
 const flexibleOptions = withDefaults(defineProps<{
@@ -63,6 +63,10 @@ function hide() {
 defineExpose({
   toggle
 })
+
+defineEmits<{
+  'updateData': [params: object]
+}>()
 
 /**
  * 초기 위치 지정

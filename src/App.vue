@@ -16,6 +16,11 @@ const toggle1 = (event: MouseEvent): void => {
 const toggle2 = (event: MouseEvent): void => {
   op2.value.toggle(event)
 }
+
+function updateData(params: object) {
+
+}
+
 </script>
 
 <template>
