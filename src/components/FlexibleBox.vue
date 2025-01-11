@@ -47,6 +47,9 @@ async function show(event: MouseEvent) {
   if(boxContainer.value) {
     setDefaultPosition(boxContainer.value)
     dragElement(boxContainer.value)
+  } else {
+    console.warn('box-container not found. Fail to add event!!')
+    console.log(event)
   }
 }
 
