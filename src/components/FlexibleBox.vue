@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {type Component, nextTick, onActivated, onMounted, ref, useTemplateRef} from "vue";
+import {type Component, nextTick, ref, useTemplateRef} from "vue";
 
 /**
  * TODO ::
@@ -165,10 +165,5 @@ function dragElement(el: HTMLElement) {
   background-color: #C3E2CE;
   color: #000;
 }
-
-.btn__close {position:relative; padding-right:15px;}
-.btn__close:before, .btn__close:after {position: absolute; right:7px; top:6px; content:''; height: 8px; width:1px; background-color: #222;}
-.btn__close:before {transform: rotate(45deg);}
-.btn__close:after {transform: rotate(-45deg);}
 
 </style>
