@@ -5,7 +5,7 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
  * TODO ::
  * - Transition 적용
  * - zIndex 옵션 (base,auto)
- *
+ * - maxWidth / maxHeight 정의
  */
 
 const flexibleOptions = withDefaults(defineProps<{
