@@ -64,8 +64,13 @@ defineExpose({
   toggle
 })
 
+/**
+ * 'update-data'
+ *  - 상위 컴포넌트에 결과를 전달
+ *  - 파라메터는 알 수 없으므로 가변인자로 정의
+ */
 const emit = defineEmits<{
-  (e: 'update-data', params: any): void
+  (e: 'update-data', ...params: any[]): void
 }>()
 
 /**
@@ -140,7 +145,7 @@ function dragElement(el: HTMLElement) {
  * @param params
  */
 function updateData(...params: any[]) {
-  emit('update-data', ...params)
+  emit('update-data', ...(params as []))
 }
 </script>
 
