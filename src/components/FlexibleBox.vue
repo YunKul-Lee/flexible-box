@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import {type Component, onMounted, ref, useTemplateRef} from "vue";
+import {type Component, nextTick, onActivated, onMounted, ref, useTemplateRef} from "vue";
 
 /**
  * TODO ::
  * - Transition 적용
- * - 창 위치
- * - Toggle 옵션
  * - zIndex 옵션 (base,auto)
  *
- * @see PrimeVue Popover
  */
 
 const flexibleOptions = withDefaults(defineProps<{
@@ -34,11 +31,34 @@ const customTheme = ref({
   defaultBottom: flexibleOptions.bottom?? null,
 })
 
-onMounted(() => {
+const visible = ref(false)
+
+// 컴포넌트 토글
+const toggle = (event: MouseEvent) => {
+  if(visible.value) hide()
+  else show(event)
+}
+
+async function show(event: MouseEvent) {
+  visible.value = true
+
+  await nextTick()
+
   if(boxContainer.value) {
     setDefaultPosition(boxContainer.value)
     dragElement(boxContainer.value)
   }
+}
+
+function hide() {
+  visible.value = false
+}
+
+/**
+ * 컴포넌트 제어 펑션 노출
+ */
+defineExpose({
+  toggle
 })
 
 /**
@@ -111,8 +131,10 @@ function dragElement(el: HTMLElement) {
 </script>
 
 <template>
-  <div class="drag-box-container" ref="box-container">
-    <div class="drag-box-header">헤더</div>
+  <div v-if="visible" class="drag-box-container" ref="box-container">
+    <div class="drag-box-header">
+      <div>헤더</div>
+    </div>
     <div>
       <component :is="flexibleOptions.contents"></component>
     </div>
@@ -141,4 +163,10 @@ function dragElement(el: HTMLElement) {
   background-color: #C3E2CE;
   color: #000;
 }
+
+.btn__close {position:relative; padding-right:15px;}
+.btn__close:before, .btn__close:after {position: absolute; right:7px; top:6px; content:''; height: 8px; width:1px; background-color: #222;}
+.btn__close:before {transform: rotate(45deg);}
+.btn__close:after {transform: rotate(-45deg);}
+
 </style>
