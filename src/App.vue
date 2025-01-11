@@ -17,8 +17,8 @@ const toggle2 = (event: MouseEvent): void => {
   op2.value.toggle(event)
 }
 
-function updateData(params: object) {
-  console.log(params)
+function updateData(params: object, p1: string, p2: boolean, p3: boolean, p4: number, p5: string) {
+  console.log(params, p1, p2, p3, p4, p5)
 }
 
 </script>

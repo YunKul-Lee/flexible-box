@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const emit = defineEmits<{
-  'update-data': [params: any]
+  'update-data': [params: object, string, boolean, boolean, number, string]
 }>()
 
 function callParent() {
@@ -8,7 +8,7 @@ function callParent() {
     'key1': 'value1',
     'key2': 'value2'
   }
-  emit('update-data', params)
+  emit('update-data', params, '1', true, false, 2, "ABC")
 }
 
 </script>

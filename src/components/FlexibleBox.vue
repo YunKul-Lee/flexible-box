@@ -3,7 +3,6 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
 
 /**
  * TODO ::
- * - emit 가변 파라메터 적용
  * - Transition 적용
  * - zIndex 옵션 (base,auto)
  *
@@ -140,8 +139,8 @@ function dragElement(el: HTMLElement) {
  * 자식 컴포넌트의 결과값을 상위 컴포넌트로 전달
  * @param params
  */
-function updateData(params: any) {
-  emit('update-data', params)
+function updateData(...params: any[]) {
+  emit('update-data', ...params)
 }
 </script>
 
