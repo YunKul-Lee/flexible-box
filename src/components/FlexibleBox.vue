@@ -6,6 +6,7 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
  * - Transition 적용
  * - zIndex 옵션 (base,auto)
  * - maxWidth / maxHeight 정의
+ * - component 영역의 위치 정렬 필요
  */
 
 const flexibleOptions = withDefaults(defineProps<{
