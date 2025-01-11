@@ -3,8 +3,10 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
 
 /**
  * TODO ::
+ * - emit 가변 파라메터 적용
  * - Transition 적용
  * - zIndex 옵션 (base,auto)
+ *
  */
 
 const flexibleOptions = withDefaults(defineProps<{
@@ -178,5 +180,4 @@ function updateData(params: any) {
   background-color: #C3E2CE;
   color: #000;
 }
-
 </style>
