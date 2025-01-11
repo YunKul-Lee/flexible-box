@@ -131,14 +131,16 @@ function dragElement(el: HTMLElement) {
 </script>
 
 <template>
-  <div v-if="visible" class="drag-box-container" ref="box-container">
-    <div class="drag-box-header">
-      <div>헤더</div>
+  <Transition name="flex">
+    <div v-if="visible" class="drag-box-container" ref="box-container">
+      <div class="drag-box-header">
+        <div>헤더</div>
+      </div>
+      <div>
+        <component :is="flexibleOptions.contents"></component>
+      </div>
     </div>
-    <div>
-      <component :is="flexibleOptions.contents"></component>
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <style scoped>
