@@ -5,7 +5,6 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
  * TODO ::
  * - Transition 적용
  * - zIndex 옵션 (base,auto)
- * - emit 정의하기
  */
 
 const flexibleOptions = withDefaults(defineProps<{
@@ -64,8 +63,8 @@ defineExpose({
   toggle
 })
 
-defineEmits<{
-  'updateData': [params: object]
+const emit = defineEmits<{
+  (e: 'update-data', params: any): void
 }>()
 
 /**
@@ -135,6 +134,13 @@ function dragElement(el: HTMLElement) {
   }
 }
 
+/**
+ * 자식 컴포넌트의 결과값을 상위 컴포넌트로 전달
+ * @param params
+ */
+function updateData(params: any) {
+  emit('update-data', params)
+}
 </script>
 
 <template>
@@ -144,7 +150,7 @@ function dragElement(el: HTMLElement) {
         <div>헤더</div>
       </div>
       <div>
-        <component :is="flexibleOptions.contents"></component>
+        <component :is="flexibleOptions.contents" @update-data="updateData"></component>
       </div>
     </div>
   </Transition>

@@ -18,7 +18,7 @@ const toggle2 = (event: MouseEvent): void => {
 }
 
 function updateData(params: object) {
-
+  console.log(params)
 }
 
 </script>
@@ -27,7 +27,7 @@ function updateData(params: object) {
   <div>
     <button @click="toggle1">메시지 박스1 띄우기</button>
     <p />
-    <flexible-box ref="op1" :contents="ChildComp1" :width="300"></flexible-box>
+    <flexible-box ref="op1" @update-data="updateData" :contents="ChildComp1" :width="300"></flexible-box>
     <p />
     <button @click="toggle2">메시지 박스2 띄우기</button>
     <p />
