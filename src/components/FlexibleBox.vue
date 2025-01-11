@@ -15,6 +15,10 @@ const flexibleOptions = withDefaults(defineProps<{
   contents: Component
   width?: number
   height?: number
+  top?: number
+  left?: number
+  right?: number
+  bottom?: number
 }>(), {
   width: 300,
   height: 300,
@@ -23,12 +27,31 @@ const flexibleOptions = withDefaults(defineProps<{
 const boxContainer = useTemplateRef('box-container')
 const customTheme = ref({
   defaultWidth: `${flexibleOptions.width}px`,
-  defaultHeight: `${flexibleOptions.height}px`
+  defaultHeight: `${flexibleOptions.height}px`,
+  defaultTop: flexibleOptions.top?? null,
+  defaultLeft: flexibleOptions.left?? null,
+  defaultRight: flexibleOptions.right?? null,
+  defaultBottom: flexibleOptions.bottom?? null,
 })
 
 onMounted(() => {
-  if(boxContainer.value) dragElement(boxContainer.value)
+  if(boxContainer.value) {
+    setDefaultPosition(boxContainer.value)
+    dragElement(boxContainer.value)
+  }
 })
+
+/**
+ * 초기 위치 지정
+ *
+ * @param el
+ */
+function setDefaultPosition(el: HTMLElement) {
+  if(customTheme.value.defaultTop) el.style.top = customTheme.value.defaultTop + 'px'
+  if(customTheme.value.defaultLeft) el.style.left = customTheme.value.defaultLeft + 'px'
+  if(customTheme.value.defaultRight) el.style.right = customTheme.value.defaultRight + 'px'
+  if(customTheme.value.defaultBottom) el.style.bottom = customTheme.value.defaultBottom + 'px'
+}
 
 /**
  * 드래그 이벤트 등록
@@ -37,19 +60,33 @@ onMounted(() => {
 function dragElement(el: HTMLElement) {
   let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
 
+  // 메시지 박스 헤더에 이벤트 등록
   const header = el.getElementsByClassName('drag-box-header')[0] as HTMLElement
   header.onmousedown = dragMouseDown
 
+  /**
+   * 마우스 버튼 누를때 관련 이벤트 등록
+   * - onmouseup   : 이벤트 초기화
+   * - onmousemove : 드래그 이벤트 등록
+   *
+   * @param e
+   */
   function dragMouseDown(e: MouseEvent) {
     e.preventDefault()
 
+    // 이벤트 발생 좌표
     pos3 = e.clientX
     pos4 = e.clientY
 
-    document.onmouseup = closeDragElement
-    document.onmousemove = elementDrag
+    el.onmouseup = closeDragElement
+    el.onmousemove = elementDrag
   }
 
+  /**
+   * 드래그를 통한 위치이동
+   *
+   * @param e
+   */
   function elementDrag(e: MouseEvent) {
     e.preventDefault()
 
@@ -62,9 +99,12 @@ function dragElement(el: HTMLElement) {
     el.style.left = (el.offsetLeft - pos1) + 'px'
   }
 
+  /**
+   * 드래그 이벤트 해제
+   */
   function closeDragElement() {
-    document.onmouseup = null
-    document.onmousemove = null
+    el.onmouseup = null
+    el.onmousemove = null
   }
 }
 
@@ -93,10 +133,7 @@ function dragElement(el: HTMLElement) {
   width: v-bind("customTheme.defaultWidth");
   height: v-bind("customTheme.defaultHeight");
   overflow: hidden;
-  resize: both;
-
-
-}
+  resize: both;}
 
 .drag-box-header {
   padding: 10px;
