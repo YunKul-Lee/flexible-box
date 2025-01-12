@@ -92,7 +92,7 @@ const emit = defineEmits<{
 /**
  * 초기 위치 지정
  *
- * @param el
+ * @param {HTMLElement} el - 대상 HTML 엘리먼트
  */
 function setDefaultPosition(el: HTMLElement) {
   if(customTheme.value.defaultTop) el.style.top = customTheme.value.defaultTop + 'px'
