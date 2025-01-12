@@ -12,6 +12,7 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
  * - 내부 컨텐츠의 정책 정의 필요
  *    : 창크기
  *      (ex. maxWidth / maxHeight 는 창크기를(스크린 사이즈 아님) 넘어갈 수 없음)
+ *      (document 크기를 default 값으로 정의하고 커스텀하게 사용할 수 있음)
  *    : 스크롤
  *      (컨텐츠 영역이 overflow 상태인 경우 스크롤이 생겨야 함)
  *
@@ -21,6 +22,8 @@ const flexibleOptions = withDefaults(defineProps<{
   contents: Component
   width?: number
   height?: number
+  maxWidth?: number
+  maxHeight?: number
   top?: number
   left?: number
   right?: number
@@ -28,6 +31,8 @@ const flexibleOptions = withDefaults(defineProps<{
 }>(), {
   width: 300,
   height: 300,
+  maxWidth: () => document.documentElement.clientWidth,
+  maxHeight: () => document.documentElement.clientHeight,
 })
 
 const boxContainer = useTemplateRef('box-container')
@@ -38,6 +43,8 @@ const customTheme = ref({
   defaultLeft: flexibleOptions.left?? null,
   defaultRight: flexibleOptions.right?? null,
   defaultBottom: flexibleOptions.bottom?? null,
+  maxWidth: `${flexibleOptions.maxWidth}px`,
+  maxHeight: `${flexibleOptions.maxHeight}px`,
 })
 
 const visible = ref(false)
@@ -182,6 +189,10 @@ function updateData(...params: any[]) {
   /* resize */
   min-width: 250px;
   min-height: 250px;
+
+  max-width: v-bind("customTheme.maxWidth");
+  max-height: v-bind("customTheme.maxHeight");
+
   width: v-bind("customTheme.defaultWidth");
   height: v-bind("customTheme.defaultHeight");
   overflow: hidden;
