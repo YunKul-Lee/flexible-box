@@ -71,7 +71,7 @@ defineExpose({
  *  - 파라메터는 알 수 없으므로 가변인자로 정의
  */
 const emit = defineEmits<{
-  (e: 'update-data', ...params: any[]): void
+  'update-data': [...params: any[]]
 }>()
 
 /**
