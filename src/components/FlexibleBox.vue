@@ -7,6 +7,14 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
  * - zIndex 옵션 (base,auto)
  * - maxWidth / maxHeight 정의
  * - component 영역의 위치 정렬 필요
+ *
+ * - style 에 대한 props 묶어서 정의
+ * - 내부 컨텐츠의 정책 정의 필요
+ *    : 창크기
+ *      (ex. maxWidth / maxHeight 는 창크기를(스크린 사이즈 아님) 넘어갈 수 없음)
+ *    : 스크롤
+ *      (컨텐츠 영역이 overflow 상태인 경우 스크롤이 생겨야 함)
+ *
  */
 
 const flexibleOptions = withDefaults(defineProps<{
