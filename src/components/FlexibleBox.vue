@@ -171,7 +171,7 @@ function updateData(...params: any[]) {
       <div class="drag-box-header">
         <div>헤더</div>
       </div>
-      <div>
+      <div class="drag-box-body">
         <component :is="flexibleOptions.contents" @update-data="updateData"></component>
       </div>
     </div>
@@ -196,12 +196,19 @@ function updateData(...params: any[]) {
   width: v-bind("customTheme.defaultWidth");
   height: v-bind("customTheme.defaultHeight");
   overflow: hidden;
-  resize: both;}
+  resize: both;
+}
 
 .drag-box-header {
   padding: 10px;
   cursor: move;
   background-color: #C3E2CE;
   color: #000;
+}
+
+.drag-box-body {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 </style>
