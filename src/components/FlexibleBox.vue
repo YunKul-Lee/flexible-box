@@ -12,6 +12,9 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
  *    : 창크기
  *      (ex. maxWidth / maxHeight 는 창크기를(스크린 사이즈 아님) 넘어갈 수 없음)
  *      (document 크기를 default 값으로 정의하고 커스텀하게 사용할 수 있음)
+ *
+ * @see vue-draggable-resizable(https://github.com/mauricius/vue-draggable-resizable)
+ *
  */
 
 const flexibleOptions = withDefaults(defineProps<{
