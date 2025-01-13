@@ -20,6 +20,7 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
 
 const flexibleOptions = withDefaults(defineProps<{
   contents: Component
+  contentsProps?: object
   width?: number
   height?: number
   maxWidth?: number
@@ -126,8 +127,8 @@ function dragElement(el: HTMLElement) {
     pos3 = e.clientX
     pos4 = e.clientY
 
-    el.onmouseup = closeDragElement
     el.onmousemove = elementDrag
+    el.onmouseup = closeDragElement
   }
 
   /**
@@ -169,10 +170,10 @@ function updateData(...params: any[]) {
   <Transition name="flex">
     <div v-if="visible" class="drag-box-container" ref="box-container">
       <div class="drag-box-header">
-        <div>헤더</div>
+        <div>헤더(드래그 영역)</div>
       </div>
       <div class="drag-box-body">
-        <component :is="flexibleOptions.contents" @update-data="updateData"></component>
+        <component :is="flexibleOptions.contents" v-bind="contentsProps" @update-data="updateData"></component>
       </div>
     </div>
   </Transition>
@@ -208,7 +209,7 @@ function updateData(...params: any[]) {
 
 .drag-box-body {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 41px);
   overflow: auto;
 }
 </style>
