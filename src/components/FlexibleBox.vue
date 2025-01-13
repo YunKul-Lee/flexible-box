@@ -5,7 +5,6 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
  * TODO ::
  * - Transition 적용
  * - zIndex 옵션 (base,auto)
- * - maxWidth / maxHeight 정의
  * - component 영역의 위치 정렬 필요
  *
  * - style 에 대한 props 묶어서 정의
@@ -13,9 +12,6 @@ import {type Component, nextTick, ref, useTemplateRef} from "vue";
  *    : 창크기
  *      (ex. maxWidth / maxHeight 는 창크기를(스크린 사이즈 아님) 넘어갈 수 없음)
  *      (document 크기를 default 값으로 정의하고 커스텀하게 사용할 수 있음)
- *    : 스크롤
- *      (컨텐츠 영역이 overflow 상태인 경우 스크롤이 생겨야 함)
- *
  */
 
 const flexibleOptions = withDefaults(defineProps<{
