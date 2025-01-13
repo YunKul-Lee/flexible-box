@@ -127,8 +127,8 @@ function dragElement(el: HTMLElement) {
     pos3 = e.clientX
     pos4 = e.clientY
 
-    el.onmousemove = elementDrag
-    el.onmouseup = closeDragElement
+    document.onmousemove = elementDrag
+    document.onmouseup = closeDragElement
   }
 
   /**
@@ -152,8 +152,8 @@ function dragElement(el: HTMLElement) {
    * 드래그 이벤트 해제
    */
   function closeDragElement() {
-    el.onmouseup = null
-    el.onmousemove = null
+    document.onmouseup = null
+    document.onmousemove = null
   }
 }
 
