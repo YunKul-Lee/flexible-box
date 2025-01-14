@@ -24,6 +24,7 @@ const flexibleOptions = withDefaults(defineProps<{
   height?: number
   maxWidth?: number
   maxHeight?: number
+  direction?: 'top' | 'bottom' | 'left' | 'right' | 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom' | 'center' | undefined
   top?: number
   left?: number
   right?: number
@@ -95,10 +96,54 @@ const emit = defineEmits<{
  * @param {HTMLElement} el - 대상 HTML 엘리먼트
  */
 function setDefaultPosition(el: HTMLElement) {
-  if(customTheme.value.defaultTop) el.style.top = customTheme.value.defaultTop + 'px'
-  if(customTheme.value.defaultLeft) el.style.left = customTheme.value.defaultLeft + 'px'
-  if(customTheme.value.defaultRight) el.style.right = customTheme.value.defaultRight + 'px'
-  if(customTheme.value.defaultBottom) el.style.bottom = customTheme.value.defaultBottom + 'px'
+
+  if(flexibleOptions.direction) {
+    const verticalDirectionPos = (document.documentElement.clientHeight - flexibleOptions.height) / 2
+    const horizontalDirectionPos = (document.documentElement.clientWidth - flexibleOptions.width) / 2
+
+    switch (flexibleOptions.direction) {
+      case "left":
+        el.style.left = '0px'
+        el.style.top = `${verticalDirectionPos}px`
+        break
+      case "right":
+        el.style.right = '0px'
+        el.style.top = `${verticalDirectionPos}px`
+        break
+      case "top":
+        el.style.top = '0px'
+        el.style.left = `${horizontalDirectionPos}px`
+        break
+      case "bottom":
+        el.style.bottom = '0px'
+        el.style.left = `${horizontalDirectionPos}px`
+        break
+      case "left-top":
+        el.style.top = '0px'
+        el.style.left = '0px'
+        break
+      case "right-top":
+        el.style.right = '0px'
+        el.style.top = '0px'
+        break
+      case "left-bottom":
+        el.style.left = '0px'
+        el.style.bottom = '0px'
+        break
+      case "right-bottom":
+        el.style.right = '0px'
+        el.style.bottom = '0px'
+        break
+      case "center":
+        el.style.left = `${horizontalDirectionPos}px`
+        el.style.top = `${verticalDirectionPos}px`
+    }
+  } else {
+    if(customTheme.value.defaultTop) el.style.top = customTheme.value.defaultTop + 'px'
+    if(customTheme.value.defaultLeft) el.style.left = customTheme.value.defaultLeft + 'px'
+    if(customTheme.value.defaultRight) el.style.right = customTheme.value.defaultRight + 'px'
+    if(customTheme.value.defaultBottom) el.style.bottom = customTheme.value.defaultBottom + 'px'
+  }
 }
 
 /**

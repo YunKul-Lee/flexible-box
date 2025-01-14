@@ -8,7 +8,6 @@ import ChildComp2 from "@/components/ChildComp2.vue"
 const op1 = ref()
 const op2 = ref()
 
-
 const toggle1 = (event: MouseEvent): void => {
   op1.value.toggle(event)
 }
@@ -27,7 +26,7 @@ function updateData(params: object, p1: string, p2: boolean, p3: boolean, p4: nu
   <div>
     <button @click="toggle1">메시지 박스1 띄우기</button>
     <p />
-    <flexible-box ref="op1" @update-data="updateData" :contents="ChildComp1" :width="300"></flexible-box>
+    <flexible-box ref="op1" @update-data="updateData" :contents="ChildComp1" :width="500" direction="right"></flexible-box>
     <p />
     <button @click="toggle2">메시지 박스2 띄우기</button>
     <p />
