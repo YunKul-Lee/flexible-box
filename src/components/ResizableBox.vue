@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { onMounted, useTemplateRef } from 'vue'
 
-function makeResizable(div: string) {
-  const element = document.querySelector(div) as HTMLElement
-  const resizerList = document.querySelectorAll(div + ' .resizer')
+const rootResizable = useTemplateRef('resizable')
+
+// function makeResizable(div: string) {
+function makeResizable(el: HTMLElement) {
+  const resizerList = el.querySelectorAll('.resizer')
+  // 창크기 최소 사이즈(가로/세로)
   const minimum_size = 100
 
   let origin_width = 0;
@@ -13,6 +16,7 @@ function makeResizable(div: string) {
   let origin_mouse_x = 0;
   let origin_mouse_y = 0;
 
+  // 8방향에 대한 이벤트 등록
   for(let i = 0, len = resizerList.length; i < len; i++) {
     const currentResizer = resizerList[i]
     // @ts-ignore
@@ -20,17 +24,18 @@ function makeResizable(div: string) {
       e.preventDefault()
 
       // 변경전 크기
-      origin_width = element.getBoundingClientRect().width
-      origin_height = element.getBoundingClientRect().height
+      origin_width = el.getBoundingClientRect().width
+      origin_height = el.getBoundingClientRect().height
 
       // 변경전 엘리먼트 시작점 (left, top)
-      origin_x = element.getBoundingClientRect().left;
-      origin_y = element.getBoundingClientRect().top;
+      origin_x = el.getBoundingClientRect().left;
+      origin_y = el.getBoundingClientRect().top;
 
       // 변경전 마우스 좌표
       origin_mouse_x = e.pageX;
       origin_mouse_y = e.pageY;
 
+      // 리사이즈 이벤트 등록
       window.addEventListener('mousemove', resize)
       window.addEventListener('mouseup', stopResize)
     })
@@ -39,69 +44,84 @@ function makeResizable(div: string) {
      * 리사이즈 처리
      */
     function resize(e: MouseEvent) {
+
       if(currentResizer.classList.contains('bottom-right')) {
-        const width = origin_width + (e.pageX - origin_mouse_x);
+        // 남동
+        const width = origin_width + (e.pageX - origin_mouse_x)
         const height = origin_height + (e.pageY - origin_mouse_y)
         if (width > minimum_size) {
-          element.style.width = width + 'px'
+          el.style.width = width + 'px'
         }
         if (height > minimum_size) {
-          element.style.height = height + 'px'
+          el.style.height = height + 'px'
         }
+
       } else if (currentResizer.classList.contains('bottom-middle')) {
+        // 남
         const height = origin_height + (e.pageY - origin_mouse_y)
         if (height > minimum_size) {
-          element.style.height = height + 'px'
+          el.style.height = height + 'px'
         }
 
       } else if(currentResizer.classList.contains('bottom-left')) {
-        const height = origin_height + (e.pageY - origin_mouse_y)
+        // 남서
         const width = origin_width - (e.pageX - origin_mouse_x)
+        const height = origin_height + (e.pageY - origin_mouse_y)
         if (height > minimum_size) {
-          element.style.height = height + 'px'
+          el.style.height = height + 'px'
         }
         if (width > minimum_size) {
-          element.style.width = width + 'px'
-          element.style.left = origin_x + (e.pageX - origin_mouse_x) + 'px'
+          el.style.width = width + 'px'
+          el.style.left = origin_x + (e.pageX - origin_mouse_x) + 'px'
         }
       } else if (currentResizer.classList.contains('middle-left')) {
+        // 서
         const width = origin_width - (e.pageX - origin_mouse_x)
         if (width > minimum_size) {
-          element.style.width = width + 'px'
-          element.style.left = origin_x + (e.pageX - origin_mouse_x) + 'px'
+          el.style.width = width + 'px'
+          el.style.left = origin_x + (e.pageX - origin_mouse_x) + 'px'
         }
+
       } else if(currentResizer.classList.contains('middle-right')) {
+        // 동
         const width = origin_width + (e.pageX - origin_mouse_x)
         if (width > minimum_size) {
-          element.style.width = width + 'px'
+          el.style.width = width + 'px'
         }
+
       } else if(currentResizer.classList.contains('top-right')) {
+        // 동북
         const width = origin_width + (e.pageX - origin_mouse_x)
         const height = origin_height - (e.pageY - origin_mouse_y)
         if (width > minimum_size) {
-          element.style.width = width + 'px'
+          el.style.width = width + 'px'
         }
         if (height > minimum_size) {
-          element.style.height = height + 'px'
-          element.style.top = origin_y + (e.pageY - origin_mouse_y) + 'px'
+          el.style.height = height + 'px'
+          el.style.top = origin_y + (e.pageY - origin_mouse_y) + 'px'
         }
+
       } else if(currentResizer.classList.contains('top-middle')) {
+        // 북
         const height = origin_height - (e.pageY - origin_mouse_y)
         if (height > minimum_size) {
-          element.style.height = height + 'px'
-          element.style.top = origin_y + (e.pageY - origin_mouse_y) + 'px'
+          el.style.height = height + 'px'
+          el.style.top = origin_y + (e.pageY - origin_mouse_y) + 'px'
         }
+
       } else if(currentResizer.classList.contains('top-left')) {
+        // 서북
         const width = origin_width - (e.pageX - origin_mouse_x)
         const height = origin_height - (e.pageY - origin_mouse_y)
         if (width > minimum_size) {
-          element.style.width = width + 'px'
-          element.style.left = origin_x + (e.pageX - origin_mouse_x) + 'px'
+          el.style.width = width + 'px'
+          el.style.left = origin_x + (e.pageX - origin_mouse_x) + 'px'
         }
         if (height > minimum_size) {
-          element.style.height = height + 'px'
-          element.style.top = origin_y + (e.pageY - origin_mouse_y) + 'px'
+          el.style.height = height + 'px'
+          el.style.top = origin_y + (e.pageY - origin_mouse_y) + 'px'
         }
+
       }
     }
 
@@ -115,12 +135,15 @@ function makeResizable(div: string) {
 }
 
 onMounted(() => {
-  makeResizable('.resizable')
+  if(rootResizable.value) {
+    makeResizable(rootResizable.value)
+  }
+  // makeResizable('.resizable')
 })
 </script>
 
 <template>
-  <div class="resizable">
+  <div class="resizable" ref="resizable">
     <div class="resizer-container">
       <div class="resizer top-left"></div>
       <div class="resizer top-middle"></div>
@@ -154,9 +177,9 @@ onMounted(() => {
 .resizable .resizer-container .resizer {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
   background: white;
   border: 3px solid #4286f4;
+  /* background: rgba(255,255,255, 0); */
   position: absolute;
 }
 
@@ -166,7 +189,7 @@ onMounted(() => {
   cursor: nwse-resize;
 }
 .resizable .resizer-container .resizer.top-middle {
-  left: 47.5%;
+  left: calc(50% - 5px);
   top: -5px;
   cursor: ns-resize;
 }
@@ -177,12 +200,12 @@ onMounted(() => {
 }
 .resizable .resizer-container .resizer.middle-left {
   left: -5px;
-  top: 47.5%;
+  top: calc(50% - 5px);
   cursor: ew-resize;
 }
 .resizable .resizer-container .resizer.middle-right {
   right: -5px;
-  top: 47.5%;
+  top: calc(50% - 5px);
   cursor: ew-resize;
 }
 .resizable .resizer-container .resizer.bottom-left {
@@ -191,7 +214,7 @@ onMounted(() => {
   cursor: nesw-resize;
 }
 .resizable .resizer-container .resizer.bottom-middle {
-  left: 47.5%;
+  left: calc(50% - 5px);
   bottom: -5px;
   cursor: ns-resize;
 }
