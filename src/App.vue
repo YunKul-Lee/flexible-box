@@ -2,6 +2,8 @@
 import { ref } from "vue"
 import FlexibleBox from "@/components/FlexibleBox.vue"
 
+import ResizableBox from "@/components/ResizableBox.vue";
+
 import ChildComp1 from "@/components/ChildComp1.vue"
 import ChildComp2 from "@/components/ChildComp2.vue"
 
@@ -31,6 +33,8 @@ function updateData(params: object, p1: string, p2: boolean, p3: boolean, p4: nu
     <button @click="toggle2">메시지 박스2 띄우기</button>
     <p />
     <flexible-box ref="op2" :contents="ChildComp2" :width="300"></flexible-box>
+    <p />
+    <resizable-box></resizable-box>
   </div>
 </template>
 
