@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<{
   height: 300,
   maxWidth: () => document.documentElement.clientWidth / 2,
   maxHeight: () => document.documentElement.clientHeight,
-  direction: undefined
+  direction: 'right'
 })
 
 const visible = ref(false)
