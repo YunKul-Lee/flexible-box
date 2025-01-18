@@ -8,7 +8,7 @@ import { addResizeEvent } from "@/util/util.resize.ts";
  * - Props 정의
  * -
  */
-const flexibleProps = withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   width?: number
   height?: number
   maxWidth?: number
@@ -38,7 +38,7 @@ async function show(event: MouseEvent) {
 
   if(rootResizable.value) {
     addDragEvent(rootResizable.value)
-    addResizeEvent(rootResizable.value)
+    addResizeEvent(rootResizable.value, 250, props.maxWidth, 250, props.maxHeight)
   }
 }
 
@@ -93,11 +93,11 @@ defineExpose({
   min-width: 250px;
   min-height: 250px;
 
-  max-width: 1000px;
-  max-height: 1000px;
+  max-width: v-bind('props.maxWidth +"px"');
+  max-height: v-bind('props.maxHeight +"px"');
 
-  width: 300px;
-  height: 300px;
+  width: v-bind('props.width +"px"');
+  height: v-bind('props.height +"px"');
 
   top: 200px;
   left: 500px;
