@@ -131,8 +131,8 @@ function updateData(...params: any[]) {
   width: 10px;
   height: 10px;
   /* background: white; */
-  /* border: 3px solid #4286f4; */
-  background: rgba(255,255,255, 0);
+  border: 3px solid #4286f4;
+  /* background: rgba(255,255,255, 0); */
   position: absolute;
 }
 
