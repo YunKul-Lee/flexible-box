@@ -57,6 +57,18 @@ function hide() {
 defineExpose({
   toggle
 })
+
+const emit = defineEmits<{
+  'update-data': [...params: any[]]
+}>()
+
+/**
+ * 자식 컴포넌트의 결과값을 상위 컴포넌트로 전달
+ * @param params
+ */
+function updateData(...params: any[]) {
+  emit('update-data', ...(params as []))
+}
 </script>
 
 <template>
@@ -81,7 +93,7 @@ defineExpose({
 
         <!-- 컨텐츠 -->
         <div class="popover-contents">
-          <component :is="props.contents" v-bind="props.contentsProps"></component>
+          <component :is="props.contents" v-bind="props.contentsProps" @update-data="updateData"></component>
         </div>
       </div>
     </div>
