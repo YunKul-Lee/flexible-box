@@ -40,8 +40,11 @@ function addDragEvent(el: HTMLElement) {
         pos3 = e.clientX
         pos4 = e.clientY
 
-        el.style.top = (el.offsetTop - pos2) + 'px'
-        el.style.left = (el.offsetLeft - pos1) + 'px'
+        const posTop = el.offsetTop - pos2
+        const posLeft = el.offsetLeft - pos1
+
+        el.style.top = (posTop > 0 ? posTop : 0) + 'px'
+        el.style.left = (posLeft > 0 ? posLeft : 0) + 'px'
     }
 
     /**
