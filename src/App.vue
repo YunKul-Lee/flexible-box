@@ -2,13 +2,13 @@
 import { ref } from "vue"
 import FlexibleBox from "@/components/FlexibleBox.vue"
 
-import ResizableBox from "@/components/ResizableBox.vue";
-
 import ChildComp1 from "@/components/ChildComp1.vue"
 import ChildComp2 from "@/components/ChildComp2.vue"
+import FlexiblePopover from "@/components/FlexiblePopover.vue";
 
 const op1 = ref()
 const op2 = ref()
+const op3 = ref()
 
 const toggle1 = (event: MouseEvent): void => {
   op1.value.toggle(event)
@@ -16,6 +16,10 @@ const toggle1 = (event: MouseEvent): void => {
 
 const toggle2 = (event: MouseEvent): void => {
   op2.value.toggle(event)
+}
+
+const toggle3 = (event: MouseEvent): void => {
+  op3.value.toggle(event)
 }
 
 function updateData(params: object, p1: string, p2: boolean, p3: boolean, p4: number, p5: string) {
@@ -34,7 +38,8 @@ function updateData(params: object, p1: string, p2: boolean, p3: boolean, p4: nu
     <p />
     <flexible-box ref="op2" :contents="ChildComp2" :width="300"></flexible-box>
     <p />
-    <resizable-box></resizable-box>
+    <button @click="toggle3">FlexiblePopover 띄우기</button>
+    <flexible-popover ref="op3"></flexible-popover>
   </div>
 </template>
 
