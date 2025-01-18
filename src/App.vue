@@ -39,7 +39,7 @@ function updateData(params: object, p1: string, p2: boolean, p3: boolean, p4: nu
     <flexible-box ref="op2" :contents="ChildComp2" :width="300"></flexible-box>
     <p />
     <button @click="toggle3">FlexiblePopover 띄우기</button>
-    <flexible-popover ref="op3" :width="500"></flexible-popover>
+    <flexible-popover ref="op3" :width="500" direction="right-top"></flexible-popover>
   </div>
 </template>
 

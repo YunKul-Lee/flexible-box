@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {nextTick, ref, useTemplateRef} from "vue";
-import { addDragEvent } from "@/util/util.drag.ts";
-import { addResizeEvent } from "@/util/util.resize.ts";
-
+import {nextTick, ref, useTemplateRef} from "vue"
+import { addDragEvent } from "@/util/util.drag.ts"
+import { addResizeEvent } from "@/util/util.resize.ts"
+import { setPosition } from '@/util/util.position.ts'
 /**
  * TODO ::
  * - Props 정의
@@ -19,6 +19,7 @@ const props = withDefaults(defineProps<{
   height: 300,
   maxWidth: () => document.documentElement.clientWidth / 2,
   maxHeight: () => document.documentElement.clientHeight,
+  direction: undefined
 })
 
 const visible = ref(false)
@@ -39,6 +40,7 @@ async function show(event: MouseEvent) {
   if(rootResizable.value) {
     addDragEvent(rootResizable.value)
     addResizeEvent(rootResizable.value, 250, props.maxWidth, 250, props.maxHeight)
+    setPosition(rootResizable.value, props.direction)
   }
 }
 
@@ -98,9 +100,6 @@ defineExpose({
 
   width: v-bind('props.width +"px"');
   height: v-bind('props.height +"px"');
-
-  top: 200px;
-  left: 500px;
 
   overflow: hidden;
 }
