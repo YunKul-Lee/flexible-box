@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {nextTick, ref, useTemplateRef} from "vue";
+import { addDragEvent } from "@/util/util.drag.ts";
+import { addResizeEvent } from "@/util/util.resize.ts";
 
 /**
  * TODO ::
@@ -7,19 +9,27 @@ import {ref} from "vue";
  */
 
 const visible = ref(false)
+const rootResizable = useTemplateRef('resizable')
 
-// 컴포넌트 토글
+// FlexiblePopover 토글
 const toggle = (event: MouseEvent) => {
   if(visible.value) hide()
   else show(event)
 }
 
-// 보이기
-function show(event: MouseEvent) {
+// FlexiblePopover 보이기
+async function show(event: MouseEvent) {
   visible.value = true
+
+  await nextTick()
+
+  if(rootResizable.value) {
+    addDragEvent(rootResizable.value)
+    addResizeEvent(rootResizable.value)
+  }
 }
 
-// 숨기기
+// FlexiblePopover 숨기기
 function hide() {
   visible.value = false
 }
@@ -33,8 +43,8 @@ defineExpose({
 </script>
 
 <template>
-  <div v-if="visible" class="flexible">
-    <div class="flexible-container" ref="box-container">
+  <div v-if="visible" class="flexible" ref="resizable">
+    <div class="flexible-container">
 
       <!-- 리사이즈 포인트 -->
       <div class="resizer top-left"></div>
@@ -86,7 +96,7 @@ defineExpose({
   width: 100%;
   height: 100%;
   /* 박스 테두리 */
-  border: 3px dashed gray;
+  border: 3px dashed #4286f4;
   box-sizing: border-box;
 }
 
@@ -150,7 +160,7 @@ defineExpose({
 .flexible-container .popover-contents {
   width: 100%;
   height: calc(100% - 41px);
-  padding: 10px;
+  background-color: white;
   overflow: auto;
 }
 </style>
