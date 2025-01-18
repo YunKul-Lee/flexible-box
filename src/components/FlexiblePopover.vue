@@ -10,6 +10,7 @@ import { setPosition } from '@/util/util.position.ts'
  */
 const props = withDefaults(defineProps<{
   contents: Component
+  contentsProps?: object
   width?: number
   height?: number
   maxWidth?: number
@@ -79,7 +80,7 @@ defineExpose({
 
       <!-- 컨텐츠 -->
       <div class="popover-contents">
-        <component :is="props.contents"></component>
+        <component :is="props.contents" v-bind="props.contentsProps"></component>
       </div>
     </div>
   </div>
