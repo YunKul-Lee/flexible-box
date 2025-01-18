@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {nextTick, ref, useTemplateRef} from "vue"
+import {type Component, nextTick, ref, useTemplateRef} from "vue"
 import { addDragEvent } from "@/util/util.drag.ts"
 import { addResizeEvent } from "@/util/util.resize.ts"
 import { setPosition } from '@/util/util.position.ts'
@@ -9,6 +9,7 @@ import { setPosition } from '@/util/util.position.ts'
  * -
  */
 const props = withDefaults(defineProps<{
+  contents: Component
   width?: number
   height?: number
   maxWidth?: number
@@ -78,7 +79,7 @@ defineExpose({
 
       <!-- 컨텐츠 -->
       <div class="popover-contents">
-        컨텐츠
+        <component :is="props.contents"></component>
       </div>
     </div>
   </div>
