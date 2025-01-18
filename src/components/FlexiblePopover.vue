@@ -5,7 +5,7 @@ import { addResizeEvent } from "@/util/util.resize.ts"
 import { setPosition } from '@/util/util.position.ts'
 /**
  * TODO ::
- * - Props 정의
+ * - Transition 적용
  * -
  */
 const props = withDefaults(defineProps<{
@@ -60,31 +60,32 @@ defineExpose({
 </script>
 
 <template>
-  <div v-if="visible" class="flexible" ref="resizable">
-    <div class="flexible-container">
+  <Transition name="flex">
+    <div v-if="visible" class="flexible" ref="resizable">
+      <div class="flexible-container">
 
-      <!-- 리사이즈 포인트 -->
-      <div class="resizer top-left"></div>
-      <div class="resizer top-middle"></div>
-      <div class="resizer top-right"></div>
-      <div class="resizer middle-left"></div>
-      <div class="resizer middle-right"></div>
-      <div class="resizer bottom-left"></div>
-      <div class="resizer bottom-middle"></div>
-      <div class="resizer bottom-right"></div>
+        <!-- 리사이즈 포인트 -->
+        <div class="resizer top-left"></div>
+        <div class="resizer top-middle"></div>
+        <div class="resizer top-right"></div>
+        <div class="resizer middle-left"></div>
+        <div class="resizer middle-right"></div>
+        <div class="resizer bottom-left"></div>
+        <div class="resizer bottom-middle"></div>
+        <div class="resizer bottom-right"></div>
 
-      <!-- 드래그 포인트 -->
-      <div class="drag-box">
-        <div>헤더(드래그 영역)</div>
-      </div>
+        <!-- 드래그 포인트 -->
+        <div class="drag-box">
+          <div>헤더(드래그 영역)</div>
+        </div>
 
-      <!-- 컨텐츠 -->
-      <div class="popover-contents">
-        <component :is="props.contents" v-bind="props.contentsProps"></component>
+        <!-- 컨텐츠 -->
+        <div class="popover-contents">
+          <component :is="props.contents" v-bind="props.contentsProps"></component>
+        </div>
       </div>
     </div>
-  </div>
-
+  </Transition>
 </template>
 
 <style scoped>
