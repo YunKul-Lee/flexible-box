@@ -5,8 +5,21 @@ import { addResizeEvent } from "@/util/util.resize.ts";
 
 /**
  * TODO ::
- * - resize / drag 처리를 위한 함수들 분리
+ * - Props 정의
+ * -
  */
+const flexibleProps = withDefaults(defineProps<{
+  width?: number
+  height?: number
+  maxWidth?: number
+  maxHeight?: number
+  direction?: 'top' | 'bottom' | 'left' | 'right' | 'left-top' | 'right-top' | 'left-bottom' | 'right-bottom' | 'center' | undefined
+}>(), {
+  width: 300,
+  height: 300,
+  maxWidth: () => document.documentElement.clientWidth / 2,
+  maxHeight: () => document.documentElement.clientHeight,
+})
 
 const visible = ref(false)
 const rootResizable = useTemplateRef('resizable')
