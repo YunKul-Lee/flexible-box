@@ -5,8 +5,7 @@ import { addResizeEvent } from "@/util/util.resize.ts"
 import { setPosition } from '@/util/util.position.ts'
 /**
  * TODO ::
- * - Transition 적용
- * -
+ *
  */
 const props = withDefaults(defineProps<{
   contents: Component
