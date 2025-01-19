@@ -190,4 +190,14 @@ function updateData(...params: any[]) {
   background-color: white;
   overflow: auto;
 }
+
+.flex-enter-active,
+.flex-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.flex-enter-from,
+.flex-leave-to {
+  opacity: 0;
+}
 </style>
